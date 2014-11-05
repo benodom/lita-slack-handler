@@ -43,7 +43,7 @@ module Lita
 				room = User.create(req['channel_id'], name: req['channel_name'])
 				source = Source.new(user: user, room: room.id)
 				log.debug "robot: #{robot}"
-				my_messages = Array.new(req['text'])
+				my_messages = Array.new(req['text'].to_str)
 				robot.send_messages(room, my_messages)
 				message = Message.new(robot, req['text'], source)
 				# Route the message to the adapter
