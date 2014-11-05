@@ -37,10 +37,12 @@ module Lita
 				log.debug "SlackHandler::receive user id:#{req['user_id']} name:#{req['user_name']}"
 				log.debug "SlackHandler::receive room id:#{req['channel_id']} name:#{req['channel_name']}"
 				log.debug "SlackHandler::receive message text size #{req['text'].size} byte(s)"
+				log.debug "SlackHandler::receive message: #{req['text']}"
 				user = User.create(req['user_id'], name: req['user_name'], mention_name: req['user_name'])
 				# Register channel using Lita::User class
 				room = User.create(req['channel_id'], name: req['channel_name'])
 				source = Source.new(user: user, room: room.id)
+				log.debug "robot: #{robot}"
 				message = Message.new(robot, req['text'], source)
 				# Route the message to the adapter
 				log.info 'SlackHandler::receive routing message to the adapter'
