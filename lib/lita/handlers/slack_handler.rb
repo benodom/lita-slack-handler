@@ -43,8 +43,7 @@ module Lita
 				room = User.create(req['channel_id'], name: req['channel_name'])
 				source = Source.new(user: user, room: room.id)
 				log.debug "robot: #{robot}"
-				my_messages = Array.new(req['text'].to_str)
-				robot.send_messages(room, my_messages)
+				robot.send_messages(room, Array[req['text']])
 				message = Message.new(robot, req['text'], source)
 				# Route the message to the adapter
 				log.info 'SlackHandler::receive routing message to the adapter'
